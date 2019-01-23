@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>appliedobjects</artifactId>
+        <groupId>com.e1c.g5.appliedobjects</groupId>
+        <version>0.0.50-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>bundles</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>console</module>
+        <module>process</module>
+        <module>ecs</module>
+        <module>v8admin</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths combine.children="append">
+                        <path>
+                            <groupId>com.e1c.g5.bsl</groupId>
+                            <artifactId>com._1c.g5.bsl.metaobjects.apt</artifactId>
+                            <version>${g5-bsl-engine-version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/target/generated-sources/annotations</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.e1c.g5.types</groupId>
+            <artifactId>com.e1c.g5.types</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com._1c.g5.commons.utils</groupId>
+            <artifactId>com._1c.g5.commons.utils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.e1c.g5.bsl</groupId>
+            <artifactId>com.e1c.g5.bsl.engine.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.e1c.g5.bsl</groupId>
+            <artifactId>com._1c.g5.bsl.metaobjects.annotations</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.e1c.g5.bsl</groupId>
+            <artifactId>com._1c.g5.runtime.bsl</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.e1c.g5.appliedobjects</groupId>
+                <artifactId>spi</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.e1c.g5.appliedobjects</groupId>
+                <artifactId>for.tests</artifactId>
+                <version>${project.parent.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
